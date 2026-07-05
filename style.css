@@ -1,0 +1,451 @@
+/* basic ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Consolas', 'Fira Code', monospace;
+}
+
+body {
+    background-color: #0c0c0c; 
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden; 
+}
+
+/* üst cmd barı */
+.window-header {
+    background: #1e1e1e;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    border-bottom: 1px solid #333;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.btn.close { background-color: #ff5f56; }
+.btn.minimize { background-color: #ffbd2e; }
+.btn.maximize { background-color: #27c93f; }
+
+.window-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #888;
+    white-space: nowrap;
+}
+
+
+.nav-projects-link {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 15;
+}
+
+.nav-projects-link:hover {
+    color: #00ff66; 
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+    transform: translateY(-1px);
+}
+
+
+/* index.html ve orbit*/
+.scene {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    perspective: 1200px; 
+    padding-bottom: 60px; 
+    overflow: hidden;
+}
+
+.center-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 60px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    transition: transform 0.3s ease;
+}
+
+.center-card:hover {
+    transform: scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.center-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    background: linear-gradient(45deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.center-card .subtitle {
+    color: #00ff66;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    opacity: 0.7;
+}
+
+.social-icons a:hover {
+    color: #00ff66;
+    opacity: 1;
+    transform: translateY(-3px);
+}
+
+.orbit {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateX(65deg) rotateY(15deg); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; 
+}
+
+.orbit-item {
+    position: absolute;
+    width: 90px;
+    height: 110px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    transform-style: preserve-3d;
+    animation: rotateOrbit 25s linear infinite;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    pointer-events: auto; 
+}
+
+.item-1 { animation-delay: 0s; color: #E34F26; box-shadow: 0 0 15px rgba(227, 79, 38, 0.15); }
+.item-2 { animation-delay: -3.5s; color: #3776AB; box-shadow: 0 0 15px rgba(55, 118, 171, 0.15); }
+.item-3 { animation-delay: -7s; color: #9B4F96; box-shadow: 0 0 15px rgba(155, 79, 150, 0.15); }
+.item-4 { animation-delay: -10.5s; color: #7952B3; box-shadow: 0 0 15px rgba(121, 82, 179, 0.15); }
+.item-5 { animation-delay: -14s; color: #61DAFB; box-shadow: 0 0 15px rgba(97, 218, 251, 0.15); }
+.item-6 { animation-delay: -17.5s; color: #2496ED; box-shadow: 0 0 15px rgba(36, 150, 237, 0.15); }
+.item-7 { animation-delay: -21s; color: #00ADD8; box-shadow: 0 0 15px rgba(0, 173, 216, 0.15); }
+
+.csharp-text, .go-text { font-size: 1.5rem; font-weight: bold; }
+
+@keyframes rotateOrbit {
+    0% {
+        transform: rotateZ(0deg) translateX(380px) rotateZ(0deg) rotateX(-65deg) rotateY(-15deg);
+        opacity: 1;
+        z-index: 6;
+    }
+    50% {
+        opacity: 0.4;
+        z-index: 1; 
+    }
+    100% {
+        transform: rotateZ(360deg) translateX(380px) rotateZ(-360deg) rotateX(-65deg) rotateY(-15deg);
+        opacity: 1;
+        z-index: 6;
+    }
+}
+
+
+/* projeler sayfası*/
+.projects-container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto; /* yatayda ortalama */
+    padding: 60px ; /* üstten v alttan 60px bırakıyoz cünkü yapışmasın*/
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+/* Sayfa Başlığı */
+.section-title {
+    color: #00ff66;
+    font-size: 1.5rem;
+    margin-bottom: 30px; 
+    letter-spacing: 1px;
+    align-self: flex-start;
+}
+
+/* 3 lü grid yhapısı */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+}
+
+
+.project-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    height: 270px; 
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 102, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 255, 102, 0.05);
+}
+
+
+.card-header {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-dots {
+    display: flex;
+    gap: 6px;
+    margin-right: 12px;
+}
+
+.card-dots .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+.card-title {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.card-body {
+    padding: 15px 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+
+.project-description {
+    color: #ccc;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    flex: 1;
+    overflow-y: auto; 
+    padding-right: 4px;
+}
+
+
+.project-description::-webkit-scrollbar {
+    width: 3px;
+}
+.project-description::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 2px;
+}
+
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.02);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tag.html { color: #E34F26; border-color: rgba(227, 79, 38, 0.25); }
+.tag.css { color: #264de4; border-color: rgba(38, 77, 228, 0.25); }
+.tag.js { color: #f7df1e; border-color: rgba(247, 223, 30, 0.25); }
+.tag.python { color: #3776AB; border-color: rgba(55, 118, 171, 0.25); }
+.tag.csharp { color: #9B4F96; border-color: rgba(155, 79, 150, 0.25); }
+.tag.bootstrap { color: #7952B3; border-color: rgba(121, 82, 179, 0.25); }
+.tag.api { color: #00ff66; border-color: rgba(0, 255, 102, 0.25); }
+.tag.go { color: #00ADD8; border-color: rgba(0, 173, 216, 0.25); }
+.tag.docker { color: #2496ED; border-color: rgba(36, 150, 237, 0.25); }
+
+
+.card-links {
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 12px;
+}
+
+.card-links a {
+    color: #777;
+    text-decoration: none;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.card-links a:hover {
+    color: #00ff66;
+}
+
+/*responsive tasarım*/
+/* Mobil Cihazlar İçin Kesin Çözüm (768px ve altı ekranlar) */
+@media (max-width: 1024px) {
+    .projects-grid { 
+        grid-template-columns: repeat(2, 1fr) !important; 
+    }
+    .orbit { 
+        width: 500px; 
+        height: 500px; 
+    }
+}
+
+@media (max-width: 768px) {
+    
+    /* Üst barı dikeyde sıkıştırıp esnek hizalamaya alıyoruz */
+    .window-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 12px !important;
+        height: 40px !important;
+    }
+
+    /* Çorba olan PowerShell başlığını mobilde kökten uçuruyoruz */
+    .window-header .window-title {
+        display: none !important;
+    }
+
+    /* Sol taraftaki renkli yuvarlakların kaymasını önlüyoruz */
+    .window-header .action-buttons {
+        display: flex !important;
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Sağdaki buton grubunu birbirine yanaştırıp sağa yaslıyoruz */
+    .window-header .nav-links-group {
+        display: flex !important;
+        gap: 8px !important;
+        align-items: center !important;
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Buton fontunu ve boşluğunu küçülterek kırılmayı engelliyoruz */
+    .window-header .nav-projects-link {
+        font-size: 12px !important;
+        padding: 4px 8px !important;
+        white-space: nowrap !important;
+    }
+
+    /* Ana sayfadaki profil kartını kibarlaştırıyoruz */
+    .center-card {
+        width: 85% !important;
+        max-width: 290px !important;
+        padding: 20px !important;
+    }
+
+    .center-card h1 {
+        font-size: 1.5rem !important;
+        margin-bottom: 5px !important;
+    }
+
+    .center-card .subtitle {
+        font-size: 0.9rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Yörüngeyi mobilde küçültüyoruz ki dışarı taşmasın */
+    .orbit {
+        width: 320px;
+        height: 320px;
+    }
+
+    .orbit-item {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+    }
+    
+    .csharp-text { font-size: 0.75rem; }
+    .go-text { font-size: 0.8rem; }
+
+    /* PROJELER KARTLARININ ALT ALTA VE DÜZGÜN SIRALANMASI İÇİN FİX */
+    .projects-container {
+        padding-top: 70px !important;
+        display: block !important; /* Dikey sıkışmayı önlemek için block yaptık */
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr !important; /* Kartları tek sütun yaptık */
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 20px !important;
+    }
+
+    .project-card {
+        width: 100% !important; /* Kartların ekrana tam yayılmasını sağladık */
+    }
+}
